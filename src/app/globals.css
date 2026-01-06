@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-pc: #3B82F6;
+  --color-register: #10B981;
+  --color-memory: #F97316;
+  --color-ea: #8B5CF6;
+  --color-stack: #EC4899;
+  --color-immediate: #EAB308;
+  --color-code: #6366F1;
+  --color-data: #14B8A6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-gray-900 text-gray-100;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* Code editor styling */
+.code-editor {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Memory cell highlighting */
+.memory-cell {
+  @apply transition-all duration-200;
+}
+
+.memory-cell.highlighted {
+  @apply ring-2 ring-ea animate-pulse-glow;
+}
+
+.memory-cell.code-segment {
+  @apply border-l-4 border-code;
+}
+
+.memory-cell.data-segment {
+  @apply border-l-4 border-data;
+}
+
+.memory-cell.stack-segment {
+  @apply border-l-4 border-stack;
+}
+
+/* Register highlighting */
+.register-cell {
+  @apply transition-all duration-200;
+}
+
+.register-cell.highlighted {
+  @apply ring-2 ring-register animate-pulse-glow bg-register/20;
+}
+
+/* Value change animation */
+@keyframes valueFlash {
+  0% { background-color: rgba(16, 185, 129, 0.5); }
+  100% { background-color: transparent; }
+}
+
+.value-changed {
+  animation: valueFlash 0.5s ease-out;
+}
+
+/* EA overlay */
+.ea-overlay {
+  @apply bg-ea/10 border border-ea rounded-lg p-4;
+}
+
+/* Instruction highlighting */
+.instruction-row {
+  @apply transition-colors duration-150;
+}
+
+.instruction-row.current {
+  @apply bg-pc/20 border-l-4 border-pc;
+}
+
+.instruction-row:hover {
+  @apply bg-gray-700/50;
+}
+
+/* Data flow arrows - SVG styling */
+.data-flow-arrow {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawArrow 0.5s ease-out forwards;
+}
+
+@keyframes drawArrow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Tooltip styling */
+.tooltip {
+  @apply absolute z-50 bg-gray-800 border border-gray-600 rounded-lg p-3 shadow-xl;
+  max-width: 350px;
+}
+
+.tooltip-formula {
+  @apply font-mono text-ea bg-gray-900 px-2 py-1 rounded mt-2;
+}
+
+/* Button variants */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg 
+         font-medium transition-colors duration-150 disabled:opacity-50 
+         disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg 
+         font-medium transition-colors duration-150;
+}
+
+.btn-icon {
+  @apply p-2 rounded-lg hover:bg-gray-700 transition-colors duration-150;
+}
+
+/* Panel styling */
+.panel {
+  @apply bg-gray-800 rounded-xl border border-gray-700 overflow-hidden;
+}
+
+.panel-header {
+  @apply bg-gray-700 px-4 py-3 border-b border-gray-600 font-semibold;
+}
+
+.panel-content {
+  @apply p-4;
+}
+
+/* Tab styling */
+.tab {
+  @apply px-4 py-2 text-gray-400 hover:text-white transition-colors duration-150 
+         border-b-2 border-transparent;
+}
+
+.tab.active {
+  @apply text-white border-blue-500;
+}
+
+/* Micro-step phase badges */
+.phase-badge {
+  @apply px-2 py-0.5 rounded text-xs font-medium;
+}
+
+.phase-fetch {
+  @apply bg-blue-500/20 text-blue-300;
+}
+
+.phase-decode {
+  @apply bg-purple-500/20 text-purple-300;
+}
+
+.phase-ea_compute {
+  @apply bg-violet-500/20 text-violet-300;
+}
+
+.phase-operand_fetch {
+  @apply bg-orange-500/20 text-orange-300;
+}
+
+.phase-execute {
+  @apply bg-green-500/20 text-green-300;
+}
+
+.phase-writeback {
+  @apply bg-pink-500/20 text-pink-300;
+}
+
+/* Syntax highlighting colors */
+.syntax-opcode {
+  @apply text-blue-400 font-semibold;
+}
+
+.syntax-register {
+  @apply text-green-400;
+}
+
+.syntax-immediate {
+  @apply text-yellow-400;
+}
+
+.syntax-label {
+  @apply text-purple-400;
+}
+
+.syntax-comment {
+  @apply text-gray-500 italic;
+}
+
+.syntax-address {
+  @apply text-orange-400;
+}
